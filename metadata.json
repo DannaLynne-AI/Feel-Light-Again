@@ -1,0 +1,6 @@
+{
+  "name": "Feel Light Again",
+  "description": "A premium, minimalist wellness landing page for digestive comfort, optimized for WhatsApp conversions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
