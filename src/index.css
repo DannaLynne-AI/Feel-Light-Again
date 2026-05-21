@@ -16,6 +16,16 @@
   --color-warm-beige: #F3EEE8;
   --color-light-sage: #EEF3EC;
   --color-warm-off-white: #FAF8F5;
+
+  --animate-subtle-pulse: subtle-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes subtle-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.03);
+    }
+  }
 }
 
 @layer base {
