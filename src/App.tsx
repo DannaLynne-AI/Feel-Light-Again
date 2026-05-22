@@ -128,10 +128,22 @@ const FAQEntry = ({ question, answer }: { question: string; answer: string; key?
   );
 };
 
-const trackWhatsAppClick = () => {
+const trackWhatsAppClick = (e: any) => {
+  e.preventDefault();
+  const url = e.currentTarget.href;
+  const target = e.currentTarget.target;
+
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', 'Contact');
   }
+
+  setTimeout(() => {
+    if (target === '_blank') {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      window.location.href = url;
+    }
+  }, 300);
 };
 
 export default function App() {
