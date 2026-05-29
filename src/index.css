@@ -16,6 +16,10 @@
   --color-warm-beige: #F3EEE8;
   --color-light-sage: #EEF3EC;
   --color-warm-off-white: #FAF8F5;
+  --color-dusty-rose: #CFA6A6;
+  --color-dusty-rose-dark: #B58888;
+  --color-olive: #7B8569;
+  --color-olive-dark: #586149;
 
   --animate-subtle-pulse: subtle-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   @keyframes subtle-pulse {

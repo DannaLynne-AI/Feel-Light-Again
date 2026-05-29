@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -12,9 +7,10 @@ import {
   ArrowRight, 
   Menu, 
   X,
+  Leaf,
+  Feather,
   Heart,
-  Sparkles,
-  Leaf
+  Sun
 } from 'lucide-react';
 import { LegalOverlay } from './components/LegalOverlay.tsx';
 import { DetailedPrivacyPolicy } from './components/DetailedPrivacyPolicy.tsx';
@@ -32,8 +28,9 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'How It Works', href: '#how-it-works' },
     { name: 'Benefits', href: '#benefits' },
+    { name: 'Process', href: '#process' },
+    { name: 'Testimonials', href: '#testimonials' },
     { name: 'FAQ', href: '#faq' },
   ];
 
@@ -102,13 +99,13 @@ const FAQEntry = ({ question, answer }: { question: string; answer: string; key?
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-earth/10 last:border-0">
+    <div className="w-full">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left hover:text-sage-light transition-colors group"
+        className="w-full py-6 flex justify-between items-center text-left hover:opacity-80 transition-opacity group"
       >
-        <span className="text-lg md:text-xl font-serif text-earth group-hover:translate-x-1 transition-transform">{question}</span>
-        <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="text-lg md:text-xl font-serif text-[#5F544E]">{question}</span>
+        <ChevronDown className={`w-5 h-5 text-[#5F544E] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -118,7 +115,7 @@ const FAQEntry = ({ question, answer }: { question: string; answer: string; key?
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <p className="pb-6 text-earth/70 leading-relaxed font-sans max-w-2xl">
+            <p className="pb-6 text-[#5F544E]/80 leading-relaxed font-sans text-lg max-w-2xl">
               {answer}
             </p>
           </motion.div>
@@ -157,36 +154,52 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen selection:bg-sage/20">
+    <div className="min-h-screen selection:bg-sage/20 bg-cream text-earth">
       <Navbar />
 
       <main>
         {/* SECTION 1 — HERO */}
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-beige/50 -z-10 rounded-l-[100px] hidden lg:block" />
+        <section className="relative min-h-screen flex items-center overflow-hidden bg-cream border-b-0">
+          {/* Subtle warm beige gradient background effect */}
+          <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-beige/30 rounded-full blur-3xl -z-10" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-dusty-rose/10 rounded-full blur-3xl -z-10" />
           
-          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center pt-24 md:pt-0">
-            <motion.div {...fadeIn}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-sage/10 text-sage rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-                <Sparkles className="w-3 h-3" />
-                Modern Wellness
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-20 items-center pt-32 pb-8 md:pt-40 md:pb-12">
+            <motion.div {...fadeIn} className="max-w-xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-dusty-rose/10 text-dusty-rose-dark rounded-full text-xs font-bold uppercase tracking-widest mb-6 border border-dusty-rose/20">
+                YOU’RE NOT ALONE ♡
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-earth leading-[1.1] mb-8">
-                Feel Comfortable In Your Body <span className="italic">Again</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-earth leading-[1.1] mb-6">
+                Tired of feeling <span className="text-dusty-rose-dark">bloated, heavy, and uncomfortable</span> after every meal?
               </h1>
-              <p className="text-lg md:text-xl text-earth/70 leading-relaxed max-w-xl mb-10">
-                Feeling bloated, heavy, or uncomfortable after eating can affect your entire day. 
-                Feel Light Again helps support everyday digestion in a simpler, more natural way 
-                — without extreme routines or complicated wellness advice.
+              <p className="text-lg md:text-xl text-earth/70 leading-relaxed mb-8 font-sans">
+                You eat a normal meal… and suddenly your stomach feels swollen, tight, or uncomfortable. It’s exhausting.
               </p>
+              
+              <ul className="mb-10 space-y-4">
+                {[
+                  "Bloating that won’t go away",
+                  "Feeling heavy and uncomfortable",
+                  "Low energy after eating",
+                  "Avoiding clothes you used to love",
+                  "Frustrated, tired, and not feeling like yourself"
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-4 text-earth/80">
+                    <div className="w-6 h-6 rounded-full bg-dusty-rose/20 flex items-center justify-center shrink-0">
+                      <Check className="w-3.5 h-3.5 text-dusty-rose-dark stroke-[3]" />
+                    </div>
+                    <span className="text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-10 py-5 rounded-full font-semibold text-lg hover:bg-sage/90 transition-all shadow-lg hover:shadow-sage/20 hover:-translate-y-1 active:scale-95 flex items-center gap-3 group animate-subtle-pulse">
-                  Find Your Best Wellness Routine
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-10 py-5 rounded-full font-semibold text-lg hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto animate-subtle-pulse">
+                  Talk to Us on WhatsApp
+                  <ArrowRight className="w-5 h-5" />
                 </a>
-                <p className="text-sm text-earth/50 font-medium px-4">
-                  Simple support for everyday digestive discomfort.
+                <p className="text-sm text-earth/50 font-medium px-4 font-serif italic text-center w-full sm:w-auto">
+                  No pressure. Just real support.
                 </p>
               </div>
             </motion.div>
@@ -195,394 +208,563 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative aspect-[4/5] md:aspect-auto md:h-[600px] rounded-[40px] overflow-hidden shadow-2xl"
+              className="relative w-full max-w-lg mx-auto lg:max-w-none"
             >
-              <img 
-                key="hero-img-sage-green-v4"
-                src="https://i.postimg.cc/htvhBhxf/hero-section-image.jpg" 
-                alt="Feel Light Again - Serene woman in a sage green sweater sitting on a comfortable sofa holding a mug with both hands, looking out a bright window in a peaceful kitchen" 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-earth/20 to-transparent p-8 flex flex-col justify-end">
-                <div className="bg-cream/40 backdrop-blur-xl p-4 rounded-2xl inline-flex items-center gap-3 w-fit border border-white/20">
-                  <div className="w-10 h-10 rounded-full bg-sage flex items-center justify-center">
-                    <Heart className="text-cream w-5 h-5" />
-                  </div>
-                  <span className="text-earth font-medium pr-4">You deserve to feel good.</span>
-                </div>
+              <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl bg-beige">
+                <img 
+                  src="https://i.postimg.cc/mkHRn17h/6efff4ce0e2127b6ad7a5ff6fd6d34efff72fcc22c6c8848f56b329114b7b7fa.png" 
+                  alt="Woman touching her stomach after eating, experiencing discomfort" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* SECTION 2 — EMOTIONAL PAIN */}
-        <section className="section-padding bg-soft-cream flex flex-col items-center text-center">
-          <motion.div {...fadeIn} className="max-w-4xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-earth mb-12">
-              It’s exhausting to feel bloated all the time.
-            </h2>
-            <div className="space-y-8 text-xl md:text-2xl text-earth/60 leading-relaxed font-sans">
-              <p>“You eat a normal meal… and suddenly your stomach feels heavy, tight, uncomfortable, or swollen.”</p>
-              <p>“Your clothes feel tighter. Your energy drops. You start avoiding certain foods or wondering why your body reacts this way.”</p>
-              <p>“And the worst part? It starts feeling ‘normal.’”</p>
-            </div>
-            
-            <motion.div 
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="h-px bg-sage/20 w-32 mx-auto my-12" 
-            />
-
-            <h3 className="text-2xl md:text-3xl text-sage font-serif italic mb-6">
-              But it doesn’t have to be.
-            </h3>
-            <p className="text-xl md:text-2xl text-earth/80">
-              You deserve to feel comfortable in your body again.
-            </p>
-          </motion.div>
-        </section>
-
-        {/* SECTION 3 — A SIMPLER APPROACH */}
-        <section id="how-it-works" className="section-padding bg-warm-beige">
-          <motion.div {...fadeIn} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-earth mb-6">A simpler approach to feeling lighter</h2>
-            <p className="text-lg text-earth/60 max-w-2xl mx-auto">
-              Feel Light Again was created for people who are tired of feeling uncomfortable after meals 
-              and overwhelmed by complicated wellness advice.
-            </p>
-          </motion.div>
-
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-            {/* Left Card */}
-            <motion.div 
-              {...fadeIn}
-              transition={{ ...fadeIn.transition, delay: 0.1 }}
-              className="bg-white rounded-[40px] p-8 md:p-12 shadow-sm border border-earth/5 hover:shadow-xl transition-all group"
-            >
-              <h3 className="text-2xl font-serif text-earth/40 uppercase tracking-widest text-center mb-10 group-hover:text-earth transition-colors">You’re Tired Of</h3>
-              <ul className="space-y-6">
-                {[
-                  "Complicated wellness routines",
-                  "Harsh detox programs",
-                  "Products that overpromise everything",
-                  "Guessing what your body needs"
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-4 text-earth/60 text-lg">
-                    <div className="w-1.5 h-1.5 rounded-full bg-earth/20" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Right Card */}
-            <motion.div 
-              {...fadeIn}
-              transition={{ ...fadeIn.transition, delay: 0.2 }}
-              className="bg-sage rounded-[40px] p-8 md:p-12 shadow-xl hover:shadow-sage/20 transition-all text-cream"
-            >
-              <h3 className="text-2xl font-serif text-cream/70 uppercase tracking-widest text-center mb-10">Our Approach Focuses On</h3>
-              <ul className="space-y-6">
-                {[
-                  "Gentle digestive support",
-                  "Feeling lighter after meals",
-                  "Simple daily wellness habits",
-                  "A routine that feels realistic"
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-4 text-cream/90 text-lg">
-                    <Check className="w-6 h-6 text-cream" strokeWidth={3} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+        {/* SECTION 2 — BENEFITS */}
+        <section id="benefits" className="pt-0 pb-6 relative overflow-hidden bg-gradient-to-b from-cream via-soft-cream to-cream">
+          {/* Subtle noise/texture overlay */}
+          <div className="absolute inset-0 opacity-[0.04] mix-blend-multiply bg-[radial-gradient(#8C847E_1px,transparent_1px)] [background-size:24px_24px]" />
+          
+          {/* Delicate botanical lines - Left */}
+          <div className="absolute left-[-5%] top-1/2 -translate-y-1/2 opacity-30 pointer-events-none w-64 h-96 flex items-center">
+            <svg viewBox="0 0 100 200" className="w-full h-full stroke-earth/40" fill="none" strokeWidth="0.5">
+              <path d="M50 200 C40 150, 30 100, 50 0 M50 150 C30 140, 20 120, 10 100 M45 100 C25 90, 15 70, 5 50" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </div>
           
-          <p className="text-center mt-12 text-earth/50 italic text-lg font-serif">
-            “Digestive wellness should feel simple, supportive, and realistic.”
-          </p>
+          {/* Delicate botanical lines - Right */}
+          <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 opacity-30 pointer-events-none w-64 h-96 flex items-center scale-x-[-1]">
+             <svg viewBox="0 0 100 200" className="w-full h-full stroke-earth/40" fill="none" strokeWidth="0.5">
+              <path d="M50 200 C40 150, 30 100, 50 0 M50 150 C30 140, 20 120, 10 100 M45 100 C25 90, 15 70, 5 50" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-0 border-y border-earth/30 py-10 relative">
+              {/* Subtle background highlight behind the whole row */}
+              <div className="absolute inset-x-0 -inset-y-4 bg-white/40 blur-2xl -z-10" />
+
+              {[
+                { 
+                  label: "REDUCE BLOATING", 
+                  desc: "Feel lighter after meals", 
+                  icon: Feather, 
+                  color: "text-sage-dark" 
+                },
+                { 
+                  label: "SUPPORT DIGESTION", 
+                  desc: "Help your body digest better", 
+                  icon: Leaf, 
+                  color: "text-olive-dark"
+                },
+                { 
+                  label: "MORE COMFORT EVERY DAY", 
+                  desc: "Feel good in your body again", 
+                  icon: Heart, 
+                  color: "text-dusty-rose-dark" 
+                },
+                { 
+                  label: "MORE ENERGY NATURALLY", 
+                  desc: "When your gut feels better, you feel better", 
+                  icon: Sun, 
+                  color: "text-earth" 
+                }
+              ].map((benefit, i) => {
+                const Icon = benefit.icon;
+                return (
+                <div key={benefit.label} className="w-full lg:w-1/4 flex flex-col items-center text-center group relative lg:px-10">
+                  {/* Divider for desktop */}
+                  {i !== 0 && (
+                    <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[1px] h-32 bg-earth/30" />
+                  )}
+                  {/* Divider for mobile */}
+                  {i !== 0 && (
+                    <div className="lg:hidden absolute top-[-32px] left-1/2 -translate-x-1/2 w-24 h-[1px] bg-earth/30" />
+                  )}
+                  
+                  <motion.div 
+                    {...fadeIn}
+                    transition={{ delay: i * 0.15 }}
+                    className="flex flex-col items-center max-w-[260px]"
+                  >
+                    <div className="w-20 h-20 rounded-full border-[1.5px] border-earth/30 bg-white/60 shadow-sm flex items-center justify-center mb-8 group-hover:border-earth/50 group-hover:bg-white/90 transition-all duration-500 hover:scale-105">
+                      <Icon className={`w-8 h-8 ${benefit.color} stroke-[2]`} />
+                    </div>
+                    <h3 className="font-sans font-extrabold tracking-[0.15em] text-[#4A433E] text-xs sm:text-sm mb-4">{benefit.label}</h3>
+                    <p className="font-serif italic text-[#4A433E] text-xl md:text-2xl leading-snug">{benefit.desc}</p>
+                  </motion.div>
+                </div>
+                );
+              })}
+            </div>
+          </div>
         </section>
 
-        {/* SECTION 4 — WHAT PEOPLE NEED SUPPORT WITH */}
-        <section id="benefits" className="section-padding bg-light-sage">
-          <div className="max-w-3xl mx-auto flex flex-col items-center">
-            <motion.div {...fadeIn} className="text-center w-full">
-              <h2 className="text-4xl md:text-5xl text-earth mb-12 leading-tight">
+        {/* SECTION 2.25 — COMPARISON */}
+        <section className="py-20 md:py-24 bg-[#F7F3EF] relative overflow-hidden">
+          <div className="max-w-5xl mx-auto px-6 relative z-10">
+            <motion.div {...fadeIn} className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-serif text-[#5F544E] mb-6 leading-[1.2]">
+                A simpler approach to feeling lighter
+              </h2>
+              <p className="text-lg md:text-xl text-[#5F544E]/80 font-serif leading-relaxed max-w-3xl mx-auto">
+                Feel Light Again was created for people who are tired of feeling uncomfortable after meals and overwhelmed by complicated wellness advice.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-16">
+              {/* Left Card */}
+              <motion.div 
+                {...fadeIn}
+                transition={{ delay: 0.1 }}
+                className="bg-[#FDFBF7] p-10 md:p-12 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#5F544E]/5"
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-dusty-rose/15 flex items-center justify-center shrink-0">
+                    <X className="w-5 h-5 text-dusty-rose-dark stroke-[2.5]" />
+                  </div>
+                  <h3 className="font-serif text-2xl text-[#5F544E]">You’re Tired Of</h3>
+                </div>
+                <ul className="space-y-5 flex-1">
+                  {[
+                    "Complicated wellness routines",
+                    "Harsh detox programs",
+                    "Products that overpromise everything",
+                    "Guessing what your body needs"
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-4 text-[#5F544E]/80 font-sans text-lg">
+                      <div className="w-1.5 h-1.5 mt-2.5 rounded-full bg-dusty-rose/50 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Right Card */}
+              <motion.div 
+                {...fadeIn}
+                transition={{ delay: 0.2 }}
+                className="bg-[#97B095] p-10 md:p-12 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-[#97B095]"
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center shrink-0">
+                    <Check className="w-5 h-5 text-[#2C382A] stroke-[2.5]" />
+                  </div>
+                  <h3 className="font-serif text-2xl text-[#1E281C]">Our Approach Focuses On</h3>
+                </div>
+                <ul className="space-y-5 flex-1">
+                  {[
+                    "Gentle digestive support",
+                    "Feeling lighter after meals",
+                    "Simple daily wellness habits",
+                    "A routine that feels realistic"
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-4 text-[#1E281C]/90 font-sans text-lg font-medium">
+                      <div className="w-1.5 h-1.5 mt-2.5 rounded-full bg-[#1E281C]/40 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="text-center">
+              <p className="font-serif italic text-2xl md:text-3xl text-[#5F544E]/90 leading-snug">
+                "Digestive wellness should feel simple, supportive, and realistic."
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* SECTION 2.3 — SYMPTOM IDENTIFICATION */}
+        <section className="py-20 md:py-24 bg-[#EEF4EC] relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <motion.div {...fadeIn} className="text-center mb-14">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5F544E] mb-6 leading-[1.2]">
                 What people are looking for support with
               </h2>
-              <div className="space-y-4 text-left">
-                {[
-                  "Feeling bloated after meals",
-                  "Feeling heavy, tight, or uncomfortable",
-                  "Low energy after eating",
-                  "Digestive discomfort that affects confidence",
-                  "Wanting a simple routine that feels doable"
-                ].map((text) => (
-                  <motion.div 
-                    key={text}
-                    whileHover={{ x: 10 }}
-                    className="bg-white/60 backdrop-blur-sm p-6 rounded-3xl flex items-center gap-5 border border-earth/5 transition-all"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-sage/10 flex items-center justify-center shrink-0">
-                      <Check className="w-5 h-5 text-sage" />
-                    </div>
-                    <span className="text-lg text-earth font-medium">{text}</span>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
-          </div>
-        </section>
 
-        {/* SECTION 5 — SIMPLE ROUTINE */}
-        <section id="simple-routine" className="section-padding bg-warm-off-white overflow-hidden relative">
-          {/* Decorative Circle */}
-          <div className="absolute -right-20 top-1/2 -translate-y-1/2 w-96 h-96 bg-sage/5 rounded-full blur-3xl -z-10" />
-          
-          <motion.div {...fadeIn} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-earth mb-6">A simple routine designed to support digestive comfort</h2>
-            <p className="text-lg text-earth/60 max-w-2xl mx-auto">
-              Our approach focuses on three simple areas of everyday digestive wellness.
-            </p>
-          </motion.div>
-
-          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            {[
-              { 
-                title: "Prepare", 
-                num: "01", 
-                text: "Support your body with simple habits that help your digestion feel less overwhelmed.",
-                color: "bg-sage/10"
-              },
-              { 
-                title: "Support", 
-                num: "02", 
-                text: "Help your body feel more balanced and comfortable after meals.",
-                color: "bg-sage/20"
-              },
-              { 
-                title: "Replenish", 
-                num: "03", 
-                text: "Create daily support that helps you feel lighter, more energized, and more like yourself.",
-                color: "bg-sage/30"
-              }
-            ].map((card, i) => (
-              <motion.div 
-                key={card.title}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: i * 0.2 }}
-                className="bg-white rounded-[40px] p-10 shadow-sm border border-earth/5 hover:-translate-y-2 transition-all"
-              >
-                <div className={`${card.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-8`}>
-                  <span className="text-sage font-serif text-2xl font-bold">{card.num}</span>
-                </div>
-                <h3 className="text-3xl text-earth mb-4">{card.title}</h3>
-                <p className="text-earth/60 leading-relaxed text-lg">
-                  {card.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION 6 — EMOTIONAL TRANSFORMATION */}
-        <section className="section-padding bg-cream relative">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-            <motion.div 
-              {...fadeIn}
-              className="order-2 lg:order-1 relative w-full max-w-[280px] md:max-w-[340px] lg:max-w-[400px] mx-auto"
-            >
-              <div className="absolute -inset-4 bg-beige/50 rounded-[40px] -z-10 rotate-3" />
-              <img 
-                src="https://i.postimg.cc/cCNCfmrz/6a91af9ea18ea695ace78bef7994b1a95b4762b1b718de662340d3873847f65e.png" 
-                alt="A woman walking peacefully outdoors in warm natural light" 
-                className="w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] max-h-[420px] lg:max-h-[480px] object-cover object-center rounded-[40px] shadow-xl"
-                referrerPolicy="no-referrer"
-              />
-            </motion.div>
-            
-            <motion.div {...fadeIn} className="order-1 lg:order-2">
-              <h2 className="text-4xl md:text-5xl text-earth mb-8 leading-tight">
-                When your digestion feels better, your whole day feels different
-              </h2>
-              <div className="space-y-6 text-xl text-earth/70 leading-relaxed">
-                <p>
-                  When you constantly feel uncomfortable after eating, it can affect your mood, energy, confidence, and daily life.
-                </p>
-                <p>
-                  Feeling comfortable in your body again may seem small, but for many people, it changes everything.
-                </p>
-              </div>
-              <div className="mt-10 h-1 w-20 bg-sage rounded-full" />
-            </motion.div>
-          </div>
-        </section>
-
-        {/* NEW SECTION — TESTIMONIALS */}
-        <section className="section-padding bg-warm-beige">
-          <motion.div {...fadeIn} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-earth mb-6">Real experiences</h2>
-            <p className="text-lg text-earth/60 max-w-2xl mx-auto italic font-serif">
-              “Small changes made a big difference in how I feel every day.”
-            </p>
-          </motion.div>
-
-          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah M.",
-                quote: "I stopped feeling uncomfortable after every meal. It's such a relief to just feel normal again.",
-                initial: "S"
-              },
-              {
-                name: "Elena R.",
-                quote: "I finally feel lighter during the day. This is the first routine that actually feels realistic for me.",
-                initial: "E"
-              },
-              {
-                name: "Jessica L.",
-                quote: "I didn't realize how much my digestive discomfort was affecting my mood. I feel more like myself now.",
-                initial: "J"
-              }
-            ].map((t, i) => (
-              <motion.div 
-                key={t.name}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: i * 0.1 }}
-                className="bg-white p-10 rounded-[40px] shadow-sm border border-earth/5 hover:shadow-xl transition-all flex flex-col justify-between"
-              >
-                <p className="text-xl text-earth/80 font-serif italic leading-relaxed mb-8">
-                  "{t.quote}"
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-sage/10 flex items-center justify-center text-sage font-bold font-serif">
-                    {t.initial}
+            <div className="flex flex-col gap-4">
+              {[
+                "Feeling bloated after meals",
+                "Feeling heavy, tight, or uncomfortable",
+                "Low energy after eating",
+                "Digestive discomfort that affects confidence",
+                "Wanting a simple routine that feels doable"
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  {...fadeIn}
+                  transition={{ delay: idx * 0.1 }}
+                  className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-[24px] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white flex items-center gap-6"
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#97B095]/20 flex items-center justify-center shrink-0">
+                    <Check className="w-5 h-5 text-[#586149] stroke-[2.5]" />
                   </div>
-                  <span className="text-sm font-bold uppercase tracking-widest text-earth/60">{t.name}</span>
-                </div>
-              </motion.div>
-            ))}
+                  <p className="text-[#5F544E] font-sans text-lg md:text-xl font-medium tracking-wide">
+                    {item}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* SECTION 7 — WHATSAPP CTA */}
-        <section id="contact" className="section-padding bg-sage-muted text-cream text-center overflow-hidden relative">
-          {/* Subtle Blobs */}
-          <div className="absolute -left-20 -top-20 w-64 h-64 bg-sage/10 rounded-full blur-3xl" />
-          <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-sage/10 rounded-full blur-3xl" />
-
-          <motion.div {...fadeIn} className="max-w-3xl mx-auto relative z-10">
-            <h2 className="text-4xl md:text-6xl mb-8">Not sure where to start?</h2>
-            <p className="text-xl text-cream/70 leading-relaxed mb-6">
-              We’ll help you understand what may be contributing to your everyday digestive discomfort 
-              and what kind of support may fit your lifestyle.
-            </p>
-            <p className="text-lg text-cream/50 mb-12 italic">
-              No pressure. No complicated process. Just a simple conversation.
-            </p>
-            
-            <div className="flex flex-col items-center gap-4">
-              <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-12 py-6 rounded-full font-bold text-xl hover:bg-sage-light transition-all shadow-2xl flex items-center gap-4 group animate-subtle-pulse">
-                <MessageCircle className="w-8 h-8" />
-                Message Us on WhatsApp
-              </a>
-              <p className="text-sm text-cream/40 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                We typically reply within a few minutes.
+        {/* SECTION 3 — SIMPLE PROCESS */}
+        <section id="process" className="section-padding bg-cream relative overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            <motion.div {...fadeIn} className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-earth mb-6">A supportive wellness process.</h2>
+              <p className="text-xl text-earth/60 font-serif italic max-w-2xl mx-auto">
+                Because feeling better shouldn't be complicated.
               </p>
+            </motion.div>
+
+            <div className="relative z-10 mt-12 md:mt-16">
+              {/* Elegant visual connector line between steps (Desktop) */}
+              <div className="hidden md:block absolute top-[32px] left-[16.66%] right-[16.66%] h-[1px] bg-gradient-to-r from-transparent via-[#5F544E]/20 to-transparent z-0" />
+              
+              <div className="grid md:grid-cols-3 gap-10 md:gap-8 lg:gap-12 relative z-10">
+                {[
+                  {
+                    step: "01",
+                    title: "Prepare",
+                    desc: "Gentle habits to help your body approach meals without feeling overwhelmed.",
+                    color: "bg-[#F8F6F3]",
+                    hoverColor: "hover:bg-[#F4EFEA]",
+                    icon: Sun,
+                    image: "https://i.postimg.cc/DZgbrSyW/1-Prepare.png"
+                  },
+                  {
+                    step: "02",
+                    title: "Support",
+                    desc: "Natural, realistic support to help reduce heaviness and discomfort after eating.",
+                    color: "bg-[#EEF4EC]",
+                    hoverColor: "hover:bg-[#E4EFE2]",
+                    icon: Leaf,
+                    image: "https://i.postimg.cc/hjdKnwNG/2-Support.png"
+                  },
+                  {
+                    step: "03",
+                    title: "Replenish",
+                    desc: "Daily nourishment that brings back your energy so you feel like yourself again.",
+                    color: "bg-[#F4F0F1]",
+                    hoverColor: "hover:bg-[#EBE4E6]",
+                    icon: Feather,
+                    image: "https://i.postimg.cc/MHf5d0cP/3-replenish.png"
+                  }
+                ].map((card, i) => {
+                  const Icon = card.icon;
+                  return (
+                    <motion.div
+                      key={card.step}
+                      {...fadeIn}
+                      transition={{ delay: i * 0.2 }}
+                      className="relative flex flex-col items-center group"
+                    >
+                      {/* Floating Step Number */}
+                      <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_24px_rgb(0,0,0,0.06)] border border-[#5F544E]/5 flex items-center justify-center mb-8 relative z-10 group-hover:-translate-y-1 group-hover:shadow-[0_12px_32px_rgb(0,0,0,0.08)] transition-all duration-500">
+                        <span className="font-serif italic text-2xl text-[#5F544E]">{card.step}</span>
+                      </div>
+
+                      {/* Card Body */}
+                      <div className={`w-full ${card.color} ${card.hoverColor} p-6 lg:p-8 rounded-[40px] shadow-[0_4px_24px_rgb(0,0,0,0.02)] group-hover:shadow-[0_16px_48px_rgb(0,0,0,0.06)] group-hover:-translate-y-1 transition-all duration-500 flex flex-col`}>
+                        
+                        {/* Enlarged Image Area */}
+                        <div className="relative aspect-[4/3] md:aspect-[5/4] w-full rounded-[28px] overflow-hidden mb-8 shadow-sm">
+                          <img 
+                            src={card.image} 
+                            alt={card.title}
+                            className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-0 bg-[#5F544E]/5 mix-blend-overlay" />
+                          
+                          {/* Floating Icon intersecting bottom right */}
+                          <div className="absolute -bottom-6 right-6 w-14 h-14 rounded-full bg-white/95 backdrop-blur-md flex items-center justify-center shadow-[0_8px_24px_rgb(0,0,0,0.1)] transform group-hover:-translate-y-1 transition-transform duration-500">
+                            <Icon className="w-6 h-6 text-[#5F544E]" />
+                          </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="px-2 pb-4 text-center md:text-left">
+                          <h3 className="text-3xl font-serif text-[#5F544E] mb-4">{card.title}</h3>
+                          <p className="text-[#5F544E]/80 leading-relaxed text-lg">
+                            {card.desc}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
-          </motion.div>
+          </div>
         </section>
 
-        {/* SECTION 8 — FAQ */}
-        <section id="faq" className="section-padding bg-cream">
-          <motion.div {...fadeIn} className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl text-earth text-center mb-16 underline underline-offset-8 decoration-sage/30">Your Questions Answered</h2>
+        {/* SECTION 2.4 — EMOTIONAL TRANSFORMATION */}
+        <section className="py-20 md:py-24 bg-cream relative overflow-hidden">
+          <div className="max-w-6xl mx-auto px-6 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Image */}
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="order-1"
+              >
+                <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.06)] bg-warm-beige/30">
+                  <img 
+                    src="https://i.postimg.cc/cCNCfmrz/6a91af9ea18ea695ace78bef7994b1a95b4762b1b718de662340d3873847f65e.png" 
+                    alt="Woman walking outdoors peacefully in golden hour" 
+                    className="w-full h-full object-cover object-center opacity-95 hover:opacity-100 transition-opacity duration-700"
+                    referrerPolicy="no-referrer"
+                  />
+                  {/* Subtle warm overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-earth/10 via-transparent to-transparent mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-sage/5 mix-blend-overlay" />
+                </div>
+              </motion.div>
+
+              {/* Right Column: Editorial Text */}
+              <motion.div 
+                {...fadeIn}
+                className="max-w-lg mx-auto lg:mx-0 order-2"
+              >
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5F544E] leading-[1.2] mb-8">
+                  When your digestion feels better, your whole day feels different
+                </h2>
+                
+                <div className="space-y-6 text-[#5F544E]/90 text-lg md:text-xl font-sans leading-relaxed">
+                  <p>
+                    When you constantly feel uncomfortable after eating, it can affect your mood, energy, confidence, and daily life.
+                  </p>
+                  
+                  <p className="font-serif italic text-xl md:text-2xl text-[#5F544E]">
+                    Feeling comfortable in your body again may seem small, but for many people, it changes everything.
+                  </p>
+                </div>
+              </motion.div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 2.5 — EMOTIONAL RELATABILITY */}
+        <section className="pt-12 pb-24 md:pt-16 md:pb-32 bg-cream relative overflow-hidden">
+          {/* Subtle Background Gradients */}
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-warm-beige/50 rounded-full blur-[100px] opacity-70 -z-10 translate-x-1/3 -translate-y-1/4" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-dusty-rose/10 rounded-full blur-[80px] -z-10 -translate-x-1/3 translate-y-1/3" />
+
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+              
+              {/* Left Column: Editorial Text */}
+              <motion.div 
+                {...fadeIn}
+                className="max-w-xl mx-auto lg:mx-0 order-2 lg:order-1"
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-[1px] w-12 bg-dusty-rose-dark/40" />
+                  <span className="text-earth/60 font-sans text-sm font-bold tracking-[0.2em] uppercase">Daily Reality</span>
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-earth leading-[1.1] mb-10 text-[#3A3532]">
+                  It’s exhausting to feel bloated all the time.
+                </h2>
+                
+                <div className="space-y-6 text-xl text-earth/80 font-serif leading-relaxed">
+                  <p>
+                    You eat a normal meal… and suddenly your stomach feels heavy, tight, uncomfortable, or swollen.
+                  </p>
+                  
+                  <div className="w-8 h-[1px] bg-sage/40 my-8" />
+                  
+                  <p>
+                    Your clothes feel tighter. Your energy drops. You start avoiding certain foods or wondering why your body reacts this way.
+                  </p>
+                  
+                  <p className="text-dusty-rose-dark font-medium italic">
+                    And the worst part? It slowly starts feeling normal.
+                  </p>
+                </div>
+                
+                <div className="mt-12 pt-8 border-t border-earth/10">
+                  <p className="font-serif italic text-2xl md:text-3xl text-earth/90 text-[#3A3532]">
+                    But your body may be asking for support.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Right Column: Lifestyle Image */}
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="relative order-1 lg:order-2"
+              >
+                <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_12px_48px_rgb(0,0,0,0.08)] bg-warm-beige/30">
+                  <img 
+                    src="https://i.postimg.cc/JnXtD5q4/508f1738a95b8b3d23fe01cc28b017e0cf287291afff23e5f20e3e7d6ffc3fa8.png" 
+                    alt="Woman sitting quietly, feeling soft emotional discomfort" 
+                    className="w-full h-full object-cover object-center opacity-90 hover:opacity-100 transition-opacity duration-700" 
+                    referrerPolicy="no-referrer"
+                  />
+                  {/* Internal image gradient for warmth */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-earth/20 via-transparent to-transparent mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-sage/10 mix-blend-overlay" />
+                </div>
+
+                {/* Floating Quote Card Overlay */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                  className="absolute -bottom-10 lg:-bottom-12 -right-4 lg:-right-8 bg-cream/95 backdrop-blur-md p-8 lg:p-10 rounded-[32px] shadow-[0_12px_40px_rgb(0,0,0,0.08)] border border-white/60 max-w-[320px] md:max-w-sm"
+                >
+                  <div className="flex gap-4">
+                    <Heart className="w-6 h-6 text-dusty-rose-dark shrink-0" />
+                    <p className="font-serif text-earth text-xl md:text-2xl leading-snug">
+                      "You deserve to feel comfortable in your body again."
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4 — TESTIMONIALS */}
+        <section id="testimonials" className="section-padding bg-warm-off-white">
+          <div className="max-w-7xl mx-auto">
+            <motion.div {...fadeIn} className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl text-earth mb-6">You are not alone in this.</h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { text: "I stopped feeling bloated after every meal. The relief is just incredible." },
+                { text: "I finally feel lighter during the day. It’s gentle, simple, and exactly what I needed." },
+                { text: "I feel more like myself again. My energy is back, and my clothes fit comfortably." }
+              ].map((testimonial, i) => (
+                <motion.div 
+                  key={i}
+                  {...fadeIn}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white p-10 rounded-[40px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-earth/5"
+                >
+                  <div className="mb-6 flex gap-1">
+                    {[1,2,3,4,5].map(star => (
+                      <svg key={star} className="w-5 h-5 text-sage" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-xl text-earth/80 font-serif italic leading-relaxed">
+                    "{testimonial.text}"
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 5 — FAQ */}
+        <section id="faq" className="py-24 md:py-32 bg-cream">
+          <motion.div {...fadeIn} className="max-w-3xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-serif text-[#5F544E] mb-6">Your Questions Answered</h2>
+              <div className="w-16 h-[1px] bg-[#97B095] mx-auto" />
+            </div>
             
             <div className="space-y-2">
               {[
                 {
                   q: "Is this a medical treatment?",
-                  a: "No, Feel Light Again focuses on everyday wellness and digestive support through natural habits and gentle routines. It is not intended to replace professional medical advice or treat specific diseases."
+                  a: "No, Feel Light Again focuses on everyday wellness and gentle digestive support. Our products are designed to comfort and nourish, not to replace professional medical advice."
                 },
                 {
                   q: "Is this only for women?",
-                  a: "While our community and approach often resonate with women, anyone looking for gentle, simple digestive support can benefit from our wellness routines."
+                  a: "While our community is largely women, our comfortable approach to digestive wellness is beneficial for anyone looking to feel lighter after meals."
                 },
                 {
                   q: "How long does it take to notice changes?",
-                  a: "Many people notice a feeling of lightness within just a few days of focusing on our simple routines, but since every body is different, we focus on sustainable habits for long-term comfort."
+                  a: "Many people feel a gentle difference in how their stomach settles within the first week, while deeper, more lasting comfort builds steadily over a month of daily support."
                 },
                 {
                   q: "Do I need a complicated routine?",
-                  a: "Not at all. We believe wellness should fit into your life, not take it over. Our focus is on 1-3 simple daily changes."
+                  a: "Not at all. We believe feeling better should be simple, not stressful. Our wellness habits are designed to easily fit into even the busiest days without feeling like a chore."
                 },
                 {
                   q: "How do I get started?",
-                  a: "The best way is to start a conversation with us on WhatsApp. We’ll listen to your concerns and help you identify the best gentle path forward."
+                  a: "The best way is to start a conversation with us on WhatsApp. We’ll listen to your concerns and gently help you identify the best path forward."
                 },
                 {
                   q: "Is this a harsh detox?",
-                  a: "Absolutely not. We avoid harsh cleanses or restrictive detoxes. Our approach is gentle, supportive, and focused on natural balance."
+                  a: "Absolutely not. We avoid harsh cleanses or restrictive detox programs entirely. Our approach is gentle, supportive, and focused on natural balance and daily comfort."
                 },
                 {
                   q: "Do I need to completely change my diet?",
-                  a: "We advocate for small, meaningful shifts rather than sudden, extreme eliminations. We help you find a way to eat normally while feeling better."
+                  a: "No. We believe in adding supportive habits rather than creating restrictive rules. You'll learn slowly what helps your body thrive without feeling deprived."
                 },
                 {
                   q: "Can I still eat normally?",
-                  a: "Yes! Our goal is to help you feel comfortable after regular meals, not to limit your life to juices and supplements."
+                  a: "Yes. Our goal is to expand your comfort space, helping your body process normal, everyday meals with less heaviness and more ease."
                 },
                 {
                   q: "What makes this different from other wellness products?",
-                  a: "We prioritize emotional well-being and simplicity. We don't push aggressive sales funnels or complicated systems—just honest support and simple habits."
+                  a: "We prioritize gentle, realistic support over aggressive empty promises. We also offer 1-on-1 human guidance to ensure you feel supported through your entire journey."
                 }
               ].map((faq, idx) => (
-                <FAQEntry key={idx} question={faq.q} answer={faq.a} />
+                <div key={idx} className="border-b border-[#5F544E]/10 last:border-0 relative">
+                  <FAQEntry question={faq.q} answer={faq.a} />
+                </div>
               ))}
             </div>
           </motion.div>
         </section>
 
-        {/* SECTION 9 — FINAL CTA */}
-        <section className="section-padding bg-soft-cream">
+        {/* SECTION 6 — FINAL CTA */}
+        <section className="section-padding bg-[#7B8569] text-cream"> {/* Muted Olive Background */}
           <motion.div 
             {...fadeIn}
-            className="max-w-5xl mx-auto rounded-[60px] bg-white p-12 md:p-20 shadow-2xl text-center border border-earth/5 relative overflow-hidden"
+            className="max-w-4xl mx-auto text-center"
           >
-            <div className="absolute top-0 left-0 w-full h-2 bg-sage" />
-            <h2 className="text-4xl md:text-6xl text-earth mb-6">You deserve to feel good after eating again.</h2>
-            <p className="text-xl text-earth/60 mb-12 max-w-2xl mx-auto font-sans">
-              Feeling lighter, more comfortable, and more confident starts with simple daily support.
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-8 text-cream">Not sure where to start?</h2>
+            <p className="text-xl md:text-2xl text-cream/90 leading-relaxed mb-12 font-serif italic">
+              We’ll help you understand what may be contributing to your digestive discomfort and what kind of support may fit your lifestyle.
             </p>
             
             <div className="flex flex-col items-center gap-6">
-              <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-earth text-cream px-12 py-6 rounded-full font-bold text-xl hover:bg-earth/90 transition-all flex items-center gap-4 group animate-subtle-pulse">
-                Start Your WhatsApp Conversation
-                <MessageCircle className="w-8 h-8 group-hover:scale-110 transition-transform" />
+              <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-cream text-[#7B8569] px-12 py-6 rounded-full font-bold text-xl hover:bg-white transition-all shadow-xl flex items-center gap-4 group animate-subtle-pulse">
+                <MessageCircle className="w-6 h-6" />
+                Message Us on WhatsApp
               </a>
-              <p className="text-earth/40 text-sm italic">
-                Modern wellness support for everyday digestive comfort.
-              </p>
             </div>
           </motion.div>
         </section>
       </main>
 
       {/* FOOTER */}
-      <footer className="py-20 px-6 bg-cream border-t border-earth/5">
+      <footer className="py-20 px-6 bg-cream">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
           <div className="max-w-md">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-6 h-6 rounded-full bg-sage flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-sage flex items-center justify-center">
                 <Leaf className="text-cream w-4 h-4" />
               </div>
               <span className="font-serif text-xl text-earth">Feel Light Again</span>
             </div>
             <p className="text-earth/60 text-sm leading-relaxed">
-              Supporting everyday digestive wellness with simplicity, warmth, and natural care.
+              Supporting everyday digestive wellness with simplicity, warmth, and natural care. You deserve to feel comfortable in your body.
             </p>
           </div>
           
@@ -590,9 +772,9 @@ export default function App() {
             <div>
               <h4 className="text-sm font-bold uppercase tracking-widest text-earth/40 mb-6 font-sans">Brand</h4>
               <ul className="space-y-3 text-earth/70">
-                <li><a href="#how-it-works" onClick={(e) => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-sage transition-colors">Our Philosophy</a></li>
-                <li><a href="#simple-routine" onClick={(e) => { e.preventDefault(); document.getElementById('simple-routine')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-sage transition-colors">Why Simplicity?</a></li>
-                <li><a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-sage transition-colors">Contact</a></li>
+                <li><a href="#benefits" className="hover:text-sage transition-colors">Benefits</a></li>
+                <li><a href="#process" className="hover:text-sage transition-colors">Our Process</a></li>
+                <li><a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="hover:text-sage transition-colors cursor-pointer">Contact</a></li>
               </ul>
             </div>
             <div>
@@ -617,6 +799,7 @@ export default function App() {
           </p>
         </div>
       </footer>
+      
       <LegalOverlay 
         isOpen={legalView === 'privacy'} 
         onClose={() => setLegalView(null)} 
@@ -632,15 +815,15 @@ export default function App() {
       >
         <p>By using our services, you agree to the following simple terms:</p>
         <section>
-          <h4 className="text-earth font-bold text-lg mb-2">Not Medical Advice</h4>
+          <h4 className="text-earth font-bold text-lg mb-2 mt-4 font-serif">Not Medical Advice</h4>
           <p>The content provided by Feel Light Again is for informational purposes only. We are not medical professionals, and our advice should not replace that of a doctor or healthcare provider.</p>
         </section>
         <section>
-          <h4 className="text-earth font-bold text-lg mb-2">Personal Responsibility</h4>
+          <h4 className="text-earth font-bold text-lg mb-2 mt-6 font-serif">Personal Responsibility</h4>
           <p>Wellness habits and digestive support suggestions are implemented at your own discretion. Always listen to your body and consult a professional before making significant changes to your diet or routine.</p>
         </section>
         <section>
-          <h4 className="text-earth font-bold text-lg mb-2">Age Requirement</h4>
+          <h4 className="text-earth font-bold text-lg mb-2 mt-6 font-serif">Age Requirement</h4>
           <p>You must be at least 18 years old to use our services and participate in wellness conversations.</p>
         </section>
       </LegalOverlay>
