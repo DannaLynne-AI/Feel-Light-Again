@@ -389,7 +389,7 @@ export default function App() {
                     color: "bg-[#F8F6F3]",
                     hoverColor: "hover:bg-[#F4EFEA]",
                     icon: Sun,
-                    image: "https://i.postimg.cc/DZgbrSyW/1-Prepare.png"
+                    image: "https://i.postimg.cc/c4t9WhJM/1-Prepare.webp"
                   },
                   {
                     step: "02",
@@ -398,7 +398,7 @@ export default function App() {
                     color: "bg-[#EEF4EC]",
                     hoverColor: "hover:bg-[#E4EFE2]",
                     icon: Leaf,
-                    image: "https://i.postimg.cc/hjdKnwNG/2-Support.png"
+                    image: "https://i.postimg.cc/HkwjqG1W/2-Support.webp"
                   },
                   {
                     step: "03",
@@ -407,7 +407,7 @@ export default function App() {
                     color: "bg-[#F4F0F1]",
                     hoverColor: "hover:bg-[#EBE4E6]",
                     icon: Feather,
-                    image: "https://i.postimg.cc/MHf5d0cP/3-replenish.png"
+                    image: "https://i.postimg.cc/B6VvT4H2/3-replenish.webp"
                   }
                 ].map((card, i) => {
                   const Icon = card.icon;
@@ -467,7 +467,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.06)] bg-warm-beige/30">
                   <img 
-                    src="https://i.postimg.cc/cCNCfmrz/6a91af9ea18ea695ace78bef7994b1a95b4762b1b718de662340d3873847f65e.png" 
+                    src="https://i.postimg.cc/hjd9Qy7K/transformation.webp" 
                     loading="lazy"
                     decoding="async"
                     alt="Woman walking outdoors peacefully in golden hour" 
@@ -551,7 +551,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_12px_48px_rgb(0,0,0,0.08)] bg-warm-beige/30">
                   <img 
-                    src="https://i.postimg.cc/JnXtD5q4/508f1738a95b8b3d23fe01cc28b017e0cf287291afff23e5f20e3e7d6ffc3fa8.png" 
+                    src="https://i.postimg.cc/zDHdTp1t/relatable.webp" 
                     loading="lazy"
                     decoding="async"
                     alt="Woman sitting quietly, feeling soft emotional discomfort" 
