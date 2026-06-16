@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { 
   MessageCircle, 
   ChevronDown, 
@@ -11,21 +10,11 @@ import {
   Heart,
   Sun
 } from 'lucide-react';
-import { LegalOverlay } from './components/LegalOverlay.tsx';
 import { DetailedPrivacyPolicy } from './components/DetailedPrivacyPolicy.tsx';
 
 // --- Components ---
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const navLinks = [
     { name: 'Benefits', href: '#benefits' },
     { name: 'Process', href: '#process' },
@@ -34,8 +23,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-cream/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+    <nav className="bg-cream py-6 w-full border-b border-earth/5 relative z-50">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center bg-cream relative z-20">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-sage flex items-center justify-center">
             <Leaf className="text-cream w-5 h-5" />
@@ -50,57 +39,70 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-6 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95 animate-subtle-pulse">
+          <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-6 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95">
             <MessageCircle className="w-4 h-4" />
             WhatsApp
           </a>
         </div>
-
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-earth" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X /> : <Menu />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
-              {mobileMenuOpen && (
-          <div             className="absolute top-full left-0 right-0 bg-cream border-t border-earth/10 p-6 md:hidden shadow-xl"
-          >
-            <div className="flex flex-col gap-6">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-serif text-earth"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2 animate-subtle-pulse">
-                <MessageCircle className="w-5 h-5" />
-                Start Conversation
+      {/* Mobile Menu - Pure CSS */}
+      <details className="md:hidden group absolute top-0 right-0 w-full z-10 [&_summary::-webkit-details-marker]:hidden">
+        <summary className="absolute top-6 right-6 p-2 z-30 cursor-pointer list-none flex items-center justify-center">
+          <Menu className="w-6 h-6 text-earth block group-open:hidden" />
+          <X className="w-6 h-6 text-earth hidden group-open:block" />
+        </summary>
+        
+        <div className="bg-cream border-t border-earth/10 p-6 pt-24 shadow-xl w-full">
+          <div className="flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className="text-lg font-serif text-earth"
+              >
+                {link.name}
               </a>
-            </div>
+            ))}
+            <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2">
+              <MessageCircle className="w-5 h-5" />
+              Start Conversation
+            </a>
           </div>
-        )}
-          </nav>
+        </div>
+      </details>
+    </nav>
   );
 };
 
 const FAQEntry = ({ question, answer }: { question: string; answer: string; key?: string | number }) => {
   return (
-    <details className="w-full group [&_summary::-webkit-details-marker]:hidden">
-      <summary className="w-full py-6 flex justify-between items-center text-left hover:opacity-80 transition-opacity cursor-pointer list-none">
-        <span className="text-lg md:text-xl font-serif text-[#5F544E]">{question}</span>
-        <ChevronDown className="w-5 h-5 text-[#5F544E] transition-transform duration-300 group-open:rotate-180" />
-      </summary>
-      <div className="overflow-hidden pb-6">
-        <p className="text-[#5F544E]/80 leading-relaxed font-sans text-lg max-w-2xl">
-          {answer}
-        </p>
+    <div className="w-full">
+      {/* Mobile/Tablet Version (Collapsible) */}
+      <details className="w-full lg:hidden print:hidden group [&_summary::-webkit-details-marker]:hidden">
+        <summary className="w-full py-6 flex justify-between items-center text-left hover:opacity-80 transition-opacity cursor-pointer list-none">
+          <span className="text-lg md:text-xl font-serif text-[#5F544E]">{question}</span>
+          <ChevronDown className="w-5 h-5 text-[#5F544E] transition-transform duration-300 group-open:rotate-180" />
+        </summary>
+        <div className="overflow-hidden pb-6">
+          <p className="text-[#5F544E]/80 leading-relaxed font-sans text-lg max-w-2xl">
+            {answer}
+          </p>
+        </div>
+      </details>
+
+      {/* Desktop & Print Version (Always Open) */}
+      <div className="hidden lg:block print:block w-full">
+        <div className="w-full py-6 flex justify-between items-center text-left">
+          <span className="text-xl font-serif text-[#5F544E]">{question}</span>
+        </div>
+        <div className="pb-6">
+          <p className="text-[#5F544E]/80 leading-relaxed font-sans text-lg max-w-2xl">
+            {answer}
+          </p>
+        </div>
       </div>
-    </details>
+    </div>
   );
 };
 
@@ -123,20 +125,18 @@ const trackWhatsAppClick = (e: any) => {
 };
 
 export default function App() {
-  const [legalView, setLegalView] = useState<'privacy' | 'terms' | null>(null);
-
   return (
-    <div className="min-h-screen selection:bg-sage/20 bg-cream text-earth">
+    <div className="selection:bg-sage/20 bg-cream text-earth">
       <Navbar />
 
       <main>
         {/* SECTION 1 — HERO */}
-        <section className="relative min-h-screen flex items-center overflow-hidden bg-cream border-b-0">
+        <section className="relative pt-8 pb-16 md:pt-16 md:pb-24 flex items-center overflow-hidden bg-cream border-b-0">
           {/* Subtle warm beige gradient background effect */}
           <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-beige/30 rounded-full blur-3xl -z-10" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-dusty-rose/10 rounded-full blur-3xl -z-10" />
           
-          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-20 items-center pt-32 pb-8 md:pt-40 md:pb-12">
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div  className="max-w-xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-dusty-rose/10 text-dusty-rose-dark rounded-full text-xs font-bold uppercase tracking-widest mb-6 border border-dusty-rose/20">
                 YOU’RE NOT ALONE ♡
@@ -710,14 +710,49 @@ export default function App() {
               <h4 className="text-sm font-bold uppercase tracking-widest text-earth/40 mb-6 font-sans">Support</h4>
               <ul className="space-y-3 text-earth/70">
                 <li><a href="#faq" className="hover:text-sage transition-colors">FAQ</a></li>
-                <li><button onClick={() => setLegalView('privacy')} className="hover:text-sage transition-colors cursor-pointer">Privacy Policy</button></li>
-                <li><button onClick={() => setLegalView('terms')} className="hover:text-sage transition-colors cursor-pointer">Terms of Service</button></li>
+                <li><a href="#privacy" className="hover:text-sage transition-colors">Privacy Policy</a></li>
+                <li><a href="#terms" className="hover:text-sage transition-colors">Terms of Service</a></li>
               </ul>
             </div>
           </div>
         </div>
         
-        <div className="max-w-7xl mx-auto mt-20 pt-10 border-t border-earth/10 flex flex-col items-center text-center">
+        {/* Legal Sections as Details */}
+        <div className="max-w-7xl mx-auto mt-20 pt-10 border-t border-earth/10">
+          <div className="flex flex-col gap-6 max-w-4xl mx-auto">
+            <details id="privacy" className="text-left group opacity-70 hover:opacity-100 transition-opacity">
+              <summary className="cursor-pointer text-sm font-serif font-bold text-earth outline-none">
+                Privacy Policy
+              </summary>
+              <div className="pt-6 pb-12 cursor-auto text-sm text-earth/80">
+                <DetailedPrivacyPolicy />
+              </div>
+            </details>
+
+            <details id="terms" className="text-left group opacity-70 hover:opacity-100 transition-opacity">
+              <summary className="cursor-pointer text-sm font-serif font-bold text-earth outline-none">
+                Terms of Service
+              </summary>
+              <div className="pt-6 pb-12 cursor-auto text-sm text-earth/80 space-y-6">
+                <p>By using our services, you agree to the following simple terms:</p>
+                <section>
+                  <h4 className="text-earth font-bold text-lg mb-2 font-serif">Not Medical Advice</h4>
+                  <p>The content provided by Feel Light Again is for informational purposes only. We are not medical professionals, and our advice should not replace that of a doctor or healthcare provider.</p>
+                </section>
+                <section>
+                  <h4 className="text-earth font-bold text-lg mb-2 font-serif">Personal Responsibility</h4>
+                  <p>Wellness habits and digestive support suggestions are implemented at your own discretion. Always listen to your body and consult a professional before making significant changes to your diet or routine.</p>
+                </section>
+                <section>
+                  <h4 className="text-earth font-bold text-lg mb-2 font-serif">Age Requirement</h4>
+                  <p>You must be at least 18 years old to use our services and participate in wellness conversations.</p>
+                </section>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto mt-12 pt-10 border-t border-earth/10 flex flex-col items-center text-center">
           <div className="max-w-3xl mb-8">
             <p className="text-earth/40 text-[11px] md:text-xs leading-loose uppercase tracking-wide">
               DISCLAIMER: THIS CONTENT IS FOR INFORMATIONAL PURPOSES ONLY. IT IS NOT INTENDED TO DIAGNOSE, TREAT, CURE, OR PREVENT ANY DISEASE. ALWAYS CONSULT YOUR HEALTHCARE PROVIDER. RESULTS AND EXPERIENCES MAY VARY.
@@ -728,34 +763,6 @@ export default function App() {
           </p>
         </div>
       </footer>
-      
-      <LegalOverlay 
-        isOpen={legalView === 'privacy'} 
-        onClose={() => setLegalView(null)} 
-        title="Privacy Policy"
-      >
-        <DetailedPrivacyPolicy />
-      </LegalOverlay>
-
-      <LegalOverlay 
-        isOpen={legalView === 'terms'} 
-        onClose={() => setLegalView(null)} 
-        title="Terms of Service"
-      >
-        <p>By using our services, you agree to the following simple terms:</p>
-        <section>
-          <h4 className="text-earth font-bold text-lg mb-2 mt-4 font-serif">Not Medical Advice</h4>
-          <p>The content provided by Feel Light Again is for informational purposes only. We are not medical professionals, and our advice should not replace that of a doctor or healthcare provider.</p>
-        </section>
-        <section>
-          <h4 className="text-earth font-bold text-lg mb-2 mt-6 font-serif">Personal Responsibility</h4>
-          <p>Wellness habits and digestive support suggestions are implemented at your own discretion. Always listen to your body and consult a professional before making significant changes to your diet or routine.</p>
-        </section>
-        <section>
-          <h4 className="text-earth font-bold text-lg mb-2 mt-6 font-serif">Age Requirement</h4>
-          <p>You must be at least 18 years old to use our services and participate in wellness conversations.</p>
-        </section>
-      </LegalOverlay>
     </div>
   );
 }
