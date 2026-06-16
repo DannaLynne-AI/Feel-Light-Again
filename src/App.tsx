@@ -175,7 +175,8 @@ export default function App() {
             >
               <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl bg-beige">
                 <img 
-                  src="/images/hero.png" 
+                  src="https://i.postimg.cc/YqQ68s9R/hero-image.webp"
+                  loading="eager" 
                   fetchPriority="high"
                   alt="Woman touching her stomach after eating, experiencing discomfort" 
                   className="w-full h-full object-cover"
@@ -388,7 +389,7 @@ export default function App() {
                     color: "bg-[#F8F6F3]",
                     hoverColor: "hover:bg-[#F4EFEA]",
                     icon: Sun,
-                    image: "/images/prepare.png"
+                    image: "https://i.postimg.cc/DZgbrSyW/1-Prepare.png"
                   },
                   {
                     step: "02",
@@ -397,7 +398,7 @@ export default function App() {
                     color: "bg-[#EEF4EC]",
                     hoverColor: "hover:bg-[#E4EFE2]",
                     icon: Leaf,
-                    image: "/images/support.png"
+                    image: "https://i.postimg.cc/hjdKnwNG/2-Support.png"
                   },
                   {
                     step: "03",
@@ -406,7 +407,7 @@ export default function App() {
                     color: "bg-[#F4F0F1]",
                     hoverColor: "hover:bg-[#EBE4E6]",
                     icon: Feather,
-                    image: "/images/replenish.png"
+                    image: "https://i.postimg.cc/MHf5d0cP/3-replenish.png"
                   }
                 ].map((card, i) => {
                   const Icon = card.icon;
@@ -466,7 +467,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.06)] bg-warm-beige/30">
                   <img 
-                    src="/images/transformation.png" 
+                    src="https://i.postimg.cc/cCNCfmrz/6a91af9ea18ea695ace78bef7994b1a95b4762b1b718de662340d3873847f65e.png" 
                     loading="lazy"
                     decoding="async"
                     alt="Woman walking outdoors peacefully in golden hour" 
@@ -550,7 +551,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_12px_48px_rgb(0,0,0,0.08)] bg-warm-beige/30">
                   <img 
-                    src="/images/relatable.png" 
+                    src="https://i.postimg.cc/JnXtD5q4/508f1738a95b8b3d23fe01cc28b017e0cf287291afff23e5f20e3e7d6ffc3fa8.png" 
                     loading="lazy"
                     decoding="async"
                     alt="Woman sitting quietly, feeling soft emotional discomfort" 
