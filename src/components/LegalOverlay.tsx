@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 
 interface LegalOverlayProps {
@@ -16,21 +15,13 @@ interface LegalOverlayProps {
 
 export const LegalOverlay = ({ isOpen, onClose, title, children }: LegalOverlayProps) => {
   return (
-    <AnimatePresence>
+    <>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
+          <div             onClick={onClose}
             className="absolute inset-0 bg-earth/60 backdrop-blur-sm"
           />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative bg-cream w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-[40px] shadow-2xl p-8 md:p-12 border border-earth/10"
+          <div             className="relative bg-cream w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-[40px] shadow-2xl p-8 md:p-12 border border-earth/10"
           >
             <button 
               onClick={onClose}
@@ -50,9 +41,9 @@ export const LegalOverlay = ({ isOpen, onClose, title, children }: LegalOverlayP
                 Close
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       )}
-    </AnimatePresence>
+    </>
   );
 };

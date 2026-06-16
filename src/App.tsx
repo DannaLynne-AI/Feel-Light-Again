@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { 
   MessageCircle, 
   ChevronDown, 
@@ -64,13 +63,8 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-cream border-t border-earth/10 p-6 md:hidden shadow-xl"
+              {mobileMenuOpen && (
+          <div             className="absolute top-full left-0 right-0 bg-cream border-t border-earth/10 p-6 md:hidden shadow-xl"
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
@@ -88,40 +82,25 @@ const Navbar = () => {
                 Start Conversation
               </a>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </nav>
+          </nav>
   );
 };
 
 const FAQEntry = ({ question, answer }: { question: string; answer: string; key?: string | number }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className="w-full">
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left hover:opacity-80 transition-opacity group"
-      >
+    <details className="w-full group [&_summary::-webkit-details-marker]:hidden">
+      <summary className="w-full py-6 flex justify-between items-center text-left hover:opacity-80 transition-opacity cursor-pointer list-none">
         <span className="text-lg md:text-xl font-serif text-[#5F544E]">{question}</span>
-        <ChevronDown className={`w-5 h-5 text-[#5F544E] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden"
-          >
-            <p className="pb-6 text-[#5F544E]/80 leading-relaxed font-sans text-lg max-w-2xl">
-              {answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        <ChevronDown className="w-5 h-5 text-[#5F544E] transition-transform duration-300 group-open:rotate-180" />
+      </summary>
+      <div className="overflow-hidden pb-6">
+        <p className="text-[#5F544E]/80 leading-relaxed font-sans text-lg max-w-2xl">
+          {answer}
+        </p>
+      </div>
+    </details>
   );
 };
 
@@ -146,13 +125,6 @@ const trackWhatsAppClick = (e: any) => {
 export default function App() {
   const [legalView, setLegalView] = useState<'privacy' | 'terms' | null>(null);
 
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.8, ease: "easeOut" }
-  };
-
   return (
     <div className="min-h-screen selection:bg-sage/20 bg-cream text-earth">
       <Navbar />
@@ -165,7 +137,7 @@ export default function App() {
           <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-dusty-rose/10 rounded-full blur-3xl -z-10" />
           
           <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-20 items-center pt-32 pb-8 md:pt-40 md:pb-12">
-            <motion.div {...fadeIn} className="max-w-xl">
+            <div  className="max-w-xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-dusty-rose/10 text-dusty-rose-dark rounded-full text-xs font-bold uppercase tracking-widest mb-6 border border-dusty-rose/20">
                 YOU’RE NOT ALONE ♡
               </div>
@@ -202,13 +174,9 @@ export default function App() {
                   No pressure. Just real support.
                 </p>
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="relative w-full max-w-lg mx-auto lg:max-w-none"
+            <div                className="relative w-full max-w-lg mx-auto lg:max-w-none"
             >
               <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl bg-beige">
                 <img 
@@ -218,7 +186,7 @@ export default function App() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -284,17 +252,14 @@ export default function App() {
                     <div className="lg:hidden absolute top-[-32px] left-1/2 -translate-x-1/2 w-24 h-[1px] bg-earth/30" />
                   )}
                   
-                  <motion.div 
-                    {...fadeIn}
-                    transition={{ delay: i * 0.15 }}
-                    className="flex flex-col items-center max-w-[260px]"
+                  <div                     className="flex flex-col items-center max-w-[260px]"
                   >
                     <div className="w-20 h-20 rounded-full border-[1.5px] border-earth/30 bg-white/60 shadow-sm flex items-center justify-center mb-8 group-hover:border-earth/50 group-hover:bg-white/90 transition-all duration-500 hover:scale-105">
                       <Icon className={`w-8 h-8 ${benefit.color} stroke-[2]`} />
                     </div>
                     <h3 className="font-sans font-extrabold tracking-[0.15em] text-[#4A433E] text-xs sm:text-sm mb-4">{benefit.label}</h3>
                     <p className="font-serif italic text-[#4A433E] text-xl md:text-2xl leading-snug">{benefit.desc}</p>
-                  </motion.div>
+                  </div>
                 </div>
                 );
               })}
@@ -305,21 +270,18 @@ export default function App() {
         {/* SECTION 2.25 — COMPARISON */}
         <section className="py-20 md:py-24 bg-[#F7F3EF] relative overflow-hidden">
           <div className="max-w-5xl mx-auto px-6 relative z-10">
-            <motion.div {...fadeIn} className="text-center mb-16">
+            <div  className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-serif text-[#5F544E] mb-6 leading-[1.2]">
                 A simpler approach to feeling lighter
               </h2>
               <p className="text-lg md:text-xl text-[#5F544E]/80 font-serif leading-relaxed max-w-3xl mx-auto">
                 Feel Light Again was created for people who are tired of feeling uncomfortable after meals and overwhelmed by complicated wellness advice.
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-16">
               {/* Left Card */}
-              <motion.div 
-                {...fadeIn}
-                transition={{ delay: 0.1 }}
-                className="bg-[#FDFBF7] p-10 md:p-12 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#5F544E]/5"
+              <div                 className="bg-[#FDFBF7] p-10 md:p-12 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#5F544E]/5"
               >
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-10 h-10 rounded-full bg-dusty-rose/15 flex items-center justify-center shrink-0">
@@ -340,13 +302,10 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
 
               {/* Right Card */}
-              <motion.div 
-                {...fadeIn}
-                transition={{ delay: 0.2 }}
-                className="bg-[#97B095] p-10 md:p-12 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-[#97B095]"
+              <div                 className="bg-[#97B095] p-10 md:p-12 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-[#97B095]"
               >
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center shrink-0">
@@ -367,25 +326,25 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div {...fadeIn} transition={{ delay: 0.3 }} className="text-center">
+            <div  className="text-center">
               <p className="font-serif italic text-2xl md:text-3xl text-[#5F544E]/90 leading-snug">
                 "Digestive wellness should feel simple, supportive, and realistic."
               </p>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* SECTION 2.3 — SYMPTOM IDENTIFICATION */}
         <section className="py-20 md:py-24 bg-[#EEF4EC] relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-6 relative z-10">
-            <motion.div {...fadeIn} className="text-center mb-14">
+            <div  className="text-center mb-14">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5F544E] mb-6 leading-[1.2]">
                 What people are looking for support with
               </h2>
-            </motion.div>
+            </div>
 
             <div className="flex flex-col gap-4">
               {[
@@ -395,11 +354,8 @@ export default function App() {
                 "Digestive discomfort that affects confidence",
                 "Wanting a simple routine that feels doable"
               ].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  {...fadeIn}
-                  transition={{ delay: idx * 0.1 }}
-                  className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-[24px] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white flex items-center gap-6"
+                <div
+                  key={idx}                   className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-[24px] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white flex items-center gap-6"
                 >
                   <div className="w-12 h-12 rounded-full bg-[#97B095]/20 flex items-center justify-center shrink-0">
                     <Check className="w-5 h-5 text-[#586149] stroke-[2.5]" />
@@ -407,7 +363,7 @@ export default function App() {
                   <p className="text-[#5F544E] font-sans text-lg md:text-xl font-medium tracking-wide">
                     {item}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -416,12 +372,12 @@ export default function App() {
         {/* SECTION 3 — SIMPLE PROCESS */}
         <section id="process" className="section-padding bg-cream relative overflow-hidden">
           <div className="max-w-7xl mx-auto">
-            <motion.div {...fadeIn} className="text-center mb-20">
+            <div  className="text-center mb-20">
               <h2 className="text-4xl md:text-5xl lg:text-6xl text-earth mb-6">A supportive wellness process.</h2>
               <p className="text-xl text-earth/60 font-serif italic max-w-2xl mx-auto">
                 Because feeling better shouldn't be complicated.
               </p>
-            </motion.div>
+            </div>
 
             <div className="relative z-10 mt-12 md:mt-16">
               {/* Elegant visual connector line between steps (Desktop) */}
@@ -459,11 +415,8 @@ export default function App() {
                 ].map((card, i) => {
                   const Icon = card.icon;
                   return (
-                    <motion.div
-                      key={card.step}
-                      {...fadeIn}
-                      transition={{ delay: i * 0.2 }}
-                      className="relative flex flex-col items-center group"
+                    <div
+                      key={card.step}                       className="relative flex flex-col items-center group"
                     >
                       {/* Floating Step Number */}
                       <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_24px_rgb(0,0,0,0.06)] border border-[#5F544E]/5 flex items-center justify-center mb-8 relative z-10 group-hover:-translate-y-1 group-hover:shadow-[0_12px_32px_rgb(0,0,0,0.08)] transition-all duration-500">
@@ -497,7 +450,7 @@ export default function App() {
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -511,12 +464,7 @@ export default function App() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               
               {/* Left Column: Image */}
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="order-1"
+              <div                 className="order-1"
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.06)] bg-warm-beige/30">
                   <img 
@@ -529,12 +477,10 @@ export default function App() {
                   <div className="absolute inset-0 bg-gradient-to-t from-earth/10 via-transparent to-transparent mix-blend-multiply" />
                   <div className="absolute inset-0 bg-sage/5 mix-blend-overlay" />
                 </div>
-              </motion.div>
+              </div>
 
               {/* Right Column: Editorial Text */}
-              <motion.div 
-                {...fadeIn}
-                className="max-w-lg mx-auto lg:mx-0 order-2"
+              <div                 className="max-w-lg mx-auto lg:mx-0 order-2"
               >
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5F544E] leading-[1.2] mb-8">
                   When your digestion feels better, your whole day feels different
@@ -549,7 +495,7 @@ export default function App() {
                     Feeling comfortable in your body again may seem small, but for many people, it changes everything.
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
             </div>
           </div>
@@ -565,9 +511,7 @@ export default function App() {
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               
               {/* Left Column: Editorial Text */}
-              <motion.div 
-                {...fadeIn}
-                className="max-w-xl mx-auto lg:mx-0 order-2 lg:order-1"
+              <div                 className="max-w-xl mx-auto lg:mx-0 order-2 lg:order-1"
               >
                 <div className="flex items-center gap-4 mb-8">
                   <div className="h-[1px] w-12 bg-dusty-rose-dark/40" />
@@ -599,15 +543,10 @@ export default function App() {
                     But your body may be asking for support.
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Right Column: Lifestyle Image */}
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="relative order-1 lg:order-2"
+              <div                 className="relative order-1 lg:order-2"
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_12px_48px_rgb(0,0,0,0.08)] bg-warm-beige/30">
                   <img 
@@ -622,12 +561,7 @@ export default function App() {
                 </div>
 
                 {/* Floating Quote Card Overlay */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                  viewport={{ once: true }}
-                  className="absolute -bottom-10 lg:-bottom-12 -right-4 lg:-right-8 bg-cream/95 backdrop-blur-md p-8 lg:p-10 rounded-[32px] shadow-[0_12px_40px_rgb(0,0,0,0.08)] border border-white/60 max-w-[320px] md:max-w-sm"
+                <div                   className="absolute -bottom-10 lg:-bottom-12 -right-4 lg:-right-8 bg-cream/95 backdrop-blur-md p-8 lg:p-10 rounded-[32px] shadow-[0_12px_40px_rgb(0,0,0,0.08)] border border-white/60 max-w-[320px] md:max-w-sm"
                 >
                   <div className="flex gap-4">
                     <Heart className="w-6 h-6 text-dusty-rose-dark shrink-0" />
@@ -635,8 +569,8 @@ export default function App() {
                       "You deserve to feel comfortable in your body again."
                     </p>
                   </div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -645,9 +579,9 @@ export default function App() {
         {/* SECTION 4 — TESTIMONIALS */}
         <section id="testimonials" className="section-padding bg-warm-off-white">
           <div className="max-w-7xl mx-auto">
-            <motion.div {...fadeIn} className="text-center mb-16">
+            <div  className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl text-earth mb-6">You are not alone in this.</h2>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
@@ -655,11 +589,8 @@ export default function App() {
                 { text: "I finally feel lighter during the day. It’s gentle, simple, and exactly what I needed." },
                 { text: "I feel more like myself again. My energy is back, and my clothes fit comfortably." }
               ].map((testimonial, i) => (
-                <motion.div 
-                  key={i}
-                  {...fadeIn}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-white p-10 rounded-[40px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-earth/5"
+                <div 
+                  key={i}                   className="bg-white p-10 rounded-[40px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-earth/5"
                 >
                   <div className="mb-6 flex gap-1">
                     {[1,2,3,4,5].map(star => (
@@ -671,7 +602,7 @@ export default function App() {
                   <p className="text-xl text-earth/80 font-serif italic leading-relaxed">
                     "{testimonial.text}"
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -679,7 +610,7 @@ export default function App() {
 
         {/* SECTION 5 — FAQ */}
         <section id="faq" className="py-24 md:py-32 bg-cream">
-          <motion.div {...fadeIn} className="max-w-3xl mx-auto px-6">
+          <div  className="max-w-3xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-serif text-[#5F544E] mb-6">Your Questions Answered</h2>
               <div className="w-16 h-[1px] bg-[#97B095] mx-auto" />
@@ -729,14 +660,12 @@ export default function App() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </section>
 
         {/* SECTION 6 — FINAL CTA */}
         <section className="section-padding bg-[#7B8569] text-cream"> {/* Muted Olive Background */}
-          <motion.div 
-            {...fadeIn}
-            className="max-w-4xl mx-auto text-center"
+          <div             className="max-w-4xl mx-auto text-center"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-8 text-cream">Not sure where to start?</h2>
             <p className="text-xl md:text-2xl text-cream/90 leading-relaxed mb-12 font-serif italic">
@@ -749,7 +678,7 @@ export default function App() {
                 Message Us on WhatsApp
               </a>
             </div>
-          </motion.div>
+          </div>
         </section>
       </main>
 
