@@ -180,7 +180,6 @@ export default function App() {
                   alt="Woman touching her stomach after eating, experiencing discomfort" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
-                  onError={(e) => { if (import.meta.env.DEV) e.currentTarget.src = "https://placehold.co/800x1000/F4EFEA/5F544E?text=Hero+Missing"; }}
                 />
               </div>
             </div>
@@ -432,7 +431,6 @@ export default function App() {
                             alt={card.title}
                             className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
                             referrerPolicy="no-referrer"
-                            onError={(e) => { if (import.meta.env.DEV) e.currentTarget.src = "https://placehold.co/600x480/F8F6F3/5F544E?text=Card+Image+Missing"; }}
                           />
                           <div className="absolute inset-0 bg-[#5F544E]/5 mix-blend-overlay" />
                           
@@ -474,7 +472,6 @@ export default function App() {
                     alt="Woman walking outdoors peacefully in golden hour" 
                     className="w-full h-full object-cover object-center opacity-95 hover:opacity-100 transition-opacity duration-700"
                     referrerPolicy="no-referrer"
-                    onError={(e) => { if (import.meta.env.DEV) e.currentTarget.src = "https://placehold.co/800x1000/F4EFEA/5F544E?text=CTA1+Missing"; }}
                   />
                   {/* Subtle warm overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-earth/10 via-transparent to-transparent mix-blend-multiply" />
@@ -559,7 +556,6 @@ export default function App() {
                     alt="Woman sitting quietly, feeling soft emotional discomfort" 
                     className="w-full h-full object-cover object-center opacity-90 hover:opacity-100 transition-opacity duration-700" 
                     referrerPolicy="no-referrer"
-                    onError={(e) => { if (import.meta.env.DEV) e.currentTarget.src = "https://placehold.co/800x1000/EEF4EC/5F544E?text=CTA2+Missing"; }}
                   />
                   {/* Internal image gradient for warmth */}
                   <div className="absolute inset-0 bg-gradient-to-t from-earth/20 via-transparent to-transparent mix-blend-multiply" />
