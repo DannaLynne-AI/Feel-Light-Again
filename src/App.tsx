@@ -39,7 +39,7 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-6 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95">
+          <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="bg-sage text-cream px-6 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95">
             <MessageCircle className="w-4 h-4" />
             WhatsApp
           </a>
@@ -64,7 +64,7 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2">
+            <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="bg-sage text-cream w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2">
               <MessageCircle className="w-5 h-5" />
               Start Conversation
             </a>
@@ -109,19 +109,14 @@ const FAQEntry = ({ question, answer }: { question: string; answer: string; key?
 const trackWhatsAppClick = (e: any) => {
   e.preventDefault();
   const url = e.currentTarget.href;
-  const target = e.currentTarget.target;
 
-  if (typeof window !== 'undefined' && (window as any).fbq) {
-    (window as any).fbq('track', 'Contact');
-  }
-
-  setTimeout(() => {
-    if (target === '_blank') {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    } else {
-      window.location.href = url;
+  if (typeof window !== 'undefined') {
+    if ((window as any).fbq) {
+      (window as any).fbq('track', 'Contact');
     }
-  }, 300);
+    // Note: Clarity tracks clicks automatically based on DOM events.
+    window.location.href = url;
+  }
 };
 
 export default function App() {
@@ -166,7 +161,7 @@ export default function App() {
               </ul>
 
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-sage text-cream px-10 py-5 rounded-full font-semibold text-lg hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto animate-subtle-pulse">
+                <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="bg-sage text-cream px-10 py-5 rounded-full font-semibold text-lg hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto animate-subtle-pulse">
                   Talk to Us on WhatsApp
                   <ArrowRight className="w-5 h-5" />
                 </a>
@@ -180,7 +175,8 @@ export default function App() {
             >
               <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl bg-beige">
                 <img 
-                  src="https://i.postimg.cc/mkHRn17h/6efff4ce0e2127b6ad7a5ff6fd6d34efff72fcc22c6c8848f56b329114b7b7fa.png" 
+                  src="/images/hero.webp" 
+                  fetchPriority="high"
                   alt="Woman touching her stomach after eating, experiencing discomfort" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -392,7 +388,7 @@ export default function App() {
                     color: "bg-[#F8F6F3]",
                     hoverColor: "hover:bg-[#F4EFEA]",
                     icon: Sun,
-                    image: "https://i.postimg.cc/DZgbrSyW/1-Prepare.png"
+                    image: "/images/prepare.webp"
                   },
                   {
                     step: "02",
@@ -401,7 +397,7 @@ export default function App() {
                     color: "bg-[#EEF4EC]",
                     hoverColor: "hover:bg-[#E4EFE2]",
                     icon: Leaf,
-                    image: "https://i.postimg.cc/hjdKnwNG/2-Support.png"
+                    image: "/images/support.webp"
                   },
                   {
                     step: "03",
@@ -410,7 +406,7 @@ export default function App() {
                     color: "bg-[#F4F0F1]",
                     hoverColor: "hover:bg-[#EBE4E6]",
                     icon: Feather,
-                    image: "https://i.postimg.cc/MHf5d0cP/3-replenish.png"
+                    image: "/images/replenish.webp"
                   }
                 ].map((card, i) => {
                   const Icon = card.icon;
@@ -430,6 +426,8 @@ export default function App() {
                         <div className="relative aspect-[4/3] md:aspect-[5/4] w-full rounded-[28px] overflow-hidden mb-8 shadow-sm">
                           <img 
                             src={card.image} 
+                            loading="lazy"
+                            decoding="async"
                             alt={card.title}
                             className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
                             referrerPolicy="no-referrer"
@@ -468,7 +466,9 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.06)] bg-warm-beige/30">
                   <img 
-                    src="https://i.postimg.cc/cCNCfmrz/6a91af9ea18ea695ace78bef7994b1a95b4762b1b718de662340d3873847f65e.png" 
+                    src="/images/cta1.webp" 
+                    loading="lazy"
+                    decoding="async"
                     alt="Woman walking outdoors peacefully in golden hour" 
                     className="w-full h-full object-cover object-center opacity-95 hover:opacity-100 transition-opacity duration-700"
                     referrerPolicy="no-referrer"
@@ -550,7 +550,9 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_12px_48px_rgb(0,0,0,0.08)] bg-warm-beige/30">
                   <img 
-                    src="https://i.postimg.cc/JnXtD5q4/508f1738a95b8b3d23fe01cc28b017e0cf287291afff23e5f20e3e7d6ffc3fa8.png" 
+                    src="/images/cta2.webp" 
+                    loading="lazy"
+                    decoding="async"
                     alt="Woman sitting quietly, feeling soft emotional discomfort" 
                     className="w-full h-full object-cover object-center opacity-90 hover:opacity-100 transition-opacity duration-700" 
                     referrerPolicy="no-referrer"
@@ -673,7 +675,7 @@ export default function App() {
             </p>
             
             <div className="flex flex-col items-center gap-6">
-              <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="bg-cream text-[#7B8569] px-12 py-6 rounded-full font-bold text-xl hover:bg-white transition-all shadow-xl flex items-center gap-4 group animate-subtle-pulse">
+              <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="bg-cream text-[#7B8569] px-12 py-6 rounded-full font-bold text-xl hover:bg-white transition-all shadow-xl flex items-center gap-4 group animate-subtle-pulse">
                 <MessageCircle className="w-6 h-6" />
                 Message Us on WhatsApp
               </a>
@@ -703,7 +705,7 @@ export default function App() {
               <ul className="space-y-3 text-earth/70">
                 <li><a href="#benefits" className="hover:text-sage transition-colors">Benefits</a></li>
                 <li><a href="#process" className="hover:text-sage transition-colors">Our Process</a></li>
-                <li><a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" target="_blank" rel="noopener noreferrer" className="hover:text-sage transition-colors cursor-pointer">Contact</a></li>
+                <li><a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="hover:text-sage transition-colors cursor-pointer">Contact</a></li>
               </ul>
             </div>
             <div>
