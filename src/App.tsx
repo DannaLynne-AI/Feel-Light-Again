@@ -551,7 +551,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_12px_48px_rgb(0,0,0,0.08)] bg-warm-beige/30">
                   <img 
-                    src="https://i.postimg.cc/zDHdTp1t/relatable.webp" 
+                    src="https://i.postimg.cc/Dw1m9SbS/relatable-section.webp" 
                     loading="lazy"
                     decoding="async"
                     alt="Woman sitting quietly, feeling soft emotional discomfort" 
