@@ -111,6 +111,13 @@ const trackWhatsAppClick = (e: any) => {
   const url = e.currentTarget.href;
 
   if (typeof window !== 'undefined') {
+    if ((window as any).gtag) {
+      (window as any).gtag('event', 'whatsapp_click', {
+        event_category: 'engagement',
+        event_label: 'whatsapp_cta',
+        link_url: 'https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0'
+      });
+    }
     if ((window as any).fbq) {
       (window as any).fbq('track', 'Contact');
     }
@@ -122,7 +129,12 @@ const trackWhatsAppClick = (e: any) => {
 const trackGuideClick = () => {
   if (typeof window !== 'undefined') {
     if ((window as any).gtag) {
-      (window as any).gtag('event', 'guide_download_click');
+      (window as any).gtag('event', 'guide_download_click', {
+        event_category: 'lead_generation',
+        event_label: 'free_guide',
+        file_name: 'feel-light-again-guide.pdf',
+        link_url: 'https://feellight.trendiadigital.com/feel-light-again-guide.pdf'
+      });
     }
   }
 };
