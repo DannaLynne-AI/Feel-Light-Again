@@ -119,6 +119,14 @@ const trackWhatsAppClick = (e: any) => {
   }
 };
 
+const trackGuideClick = () => {
+  if (typeof window !== 'undefined') {
+    if ((window as any).gtag) {
+      (window as any).gtag('event', 'guide_download_click');
+    }
+  }
+};
+
 export default function App() {
   return (
     <div className="selection:bg-sage/20 bg-cream text-earth">
@@ -160,12 +168,17 @@ export default function App() {
                 ))}
               </ul>
 
-              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="bg-sage text-cream px-10 py-5 rounded-full font-semibold text-lg hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto animate-subtle-pulse">
-                  Talk to Us on WhatsApp
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-                <p className="text-sm text-earth/50 font-medium px-4 font-serif italic text-center w-full sm:w-auto">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-center">
+                  <a onClick={trackWhatsAppClick} href="https://api.whatsapp.com/message/AGK67AWBJTFRD1?autoload=1&app_absent=0" className="bg-sage text-cream px-10 py-5 rounded-full font-semibold text-lg hover:bg-sage-dark transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto animate-subtle-pulse shrink-0">
+                    Talk to Us on WhatsApp
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                  <a onClick={trackGuideClick} href="https://docs.google.com/forms/d/e/1FAIpQLSdH0cItcJ13okmFvaKIQMJS9NXlgHGyEM20D953mcO0Aooypg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" className="bg-transparent border-2 border-sage text-sage px-8 py-[18px] rounded-full font-semibold text-lg hover:bg-sage/5 transition-all shadow-sm flex items-center justify-center shrink-0 w-full sm:w-auto text-center">
+                    Get Free Guide
+                  </a>
+                </div>
+                <p className="text-sm text-earth/50 font-medium px-2 font-serif italic text-center sm:text-left mt-2">
                   No pressure. Just real support.
                 </p>
               </div>
@@ -576,6 +589,25 @@ export default function App() {
               </div>
 
             </div>
+          </div>
+        </section>
+
+        {/* SECTION 3.5 — LEAD MAGNET */}
+        <section className="py-20 md:py-24 bg-[#E4EFE2] relative overflow-hidden border-t border-earth/5">
+          {/* Decorative background circle */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EEF4EC] rounded-full blur-[80px] -z-10 opacity-70" />
+          
+          <div className="max-w-4xl mx-auto px-6 text-center relative z-10 flex flex-col items-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#2C382A] leading-tight mb-6">
+              Want to learn more?
+            </h2>
+            <p className="text-lg md:text-xl lg:text-2xl text-[#2C382A]/80 font-serif italic leading-relaxed mb-10 max-w-2xl mx-auto">
+              Download our free guide:<br /> "The Gut Connection: 7 Signs You Shouldn't Ignore"
+            </p>
+            <a onClick={trackGuideClick} href="https://docs.google.com/forms/d/e/1FAIpQLSdH0cItcJ13okmFvaKIQMJS9NXlgHGyEM20D953mcO0Aooypg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" className="bg-[#2C382A] text-cream px-10 py-[18px] rounded-full font-semibold text-lg hover:bg-[#1E281C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 inline-flex items-center justify-center gap-3 w-full sm:w-auto">
+              Get Free Guide
+              <ArrowRight className="w-5 h-5" />
+            </a>
           </div>
         </section>
 
